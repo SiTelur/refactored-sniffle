@@ -1,3 +1,5 @@
+import 'package:biemart/config/router/route.dart';
+import 'package:biemart/config/theme/theme.dart';
 import 'package:biemart/features/auth/presentation/provider/auth/bloc/auth_bloc.dart';
 import 'package:biemart/features/home/presentation/pages/home.dart';
 import 'package:biemart/injection_container.dart';
@@ -26,11 +28,21 @@ class MyApp extends StatelessWidget {
       providers: [],
       child: MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+        theme: theme(),
+        home: BlocConsumer<AuthBloc, AuthStates>(
+          listener: (context, state) {
+            if (state is AuthUserUnauthenticated) {
+              Navigator.of(context).pushReplacementNamed('/login');
+            }
+            if (state is AuthUserAuthenticated) {
+              Navigator.of(context).pushReplacementNamed('/home');
+            }
+          },
+          builder: (context, state) {
+            return Scaffold();
+          },
         ),
-        home: const HomePage(),
+        onGenerateRoute: AppRoute.onGenerateRoute,
       ),
     );
   }
