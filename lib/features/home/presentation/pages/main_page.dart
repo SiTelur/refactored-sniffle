@@ -54,8 +54,8 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.event),
-            label: 'Event',
+            icon: Icon(Icons.verified_user),
+            label: 'User',
           )
         ],
         onTap: (value) {
